@@ -1,0 +1,2 @@
+# Chess-Game-with-DQ-Learning-and-Alpha-beta-Algorithm
+Program to play Chess against DQ Learning and Alpha-Beta algorithm. In Menu can be selected to train the model, to play with DQ Learning and play with Alpha-Beta algorithm. Once the model is train the learned configuration is saved in an external file. Configuration can be reset from the Menu. Training can be done with it self (DQ ) or Stockfish.
