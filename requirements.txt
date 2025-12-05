@@ -1,0 +1,4 @@
+pygame
+python-chess
+torch
+numpy
