@@ -211,15 +211,45 @@ class DQNAgent:
         print("Model reseted.")
 
     def train(self, iterations):
-        for _ in range(iterations):
+        #print(f"[TRAIN] Iniciando entrenamiento por {iterations} iteraciones...")
+
+        for episode in range(1, iterations + 1):
+
             board = chess.Board()
+            move_counter = 0
+
             while not board.is_game_over():
+                move_counter += 1
+
+                if move_counter > 500:
+                    print(f"[EPISODIO {episode}] Max limit of moves reached. Game finished.")
+                    break
+
                 move = self.choose_action(board)
+
+                if move is None:
+                    break
+
                 old_board = board.copy()
                 board.push(move)
+
                 reward = self.calculate_reward(old_board, move, board)
+
                 self.update(old_board, move, reward, board)
+
+            # ---------- Recompensa final ----------
+            result = board.result()
+            print(f"[EPISODE {episode}] Final Result: {result}")
+
+            if result == "1-0":
+                final_reward = 1
+            elif result == "0-1":
+                final_reward = -1
+            else:
+                final_reward = 0
+
         self.save_model()
+        print("[TRAIN] Model Saved.")
 
     def train_vs_stockfish(self, iterations, stockfish_path="./stockfish-windows-x86-64-avx2.exe"):
         print("Training against Stockfish...")
